@@ -1,26 +1,176 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0f;
+  --foreground: #f5f6fa;
+  --accent-red: #ff3b3b;
+  --accent-pink: #ff00c8;
+  --accent-purple: #a259ff;
+  --accent-blue: #00eaff;
+  --accent-yellow: #ffe156;
+  --neon-green: #00ffb3;
+  --neon-cyan: #00fff7;
+  --neon-pink: #ff00c8;
+  --neon-purple: #a259ff;
+  --neon-blue: #00eaff;
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', sans-serif;
+  --font-sans: 'InterVariable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.neon-border {
+  border: 2.5px solid var(--neon-cyan);
+  box-shadow: 0 0 24px 2px var(--neon-cyan), 0 0 8px 2px var(--neon-blue);
+  animation: neon-flicker 2.5s infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { box-shadow: 0 0 24px 2px var(--neon-cyan), 0 0 8px 2px var(--neon-blue); }
+  50% { box-shadow: 0 0 36px 6px var(--neon-pink), 0 0 16px 4px var(--neon-green); }
+}
+
+.glassmorphic {
+  background: linear-gradient(135deg, rgba(20,20,30,0.88) 0%, rgba(10,10,15,0.92) 100%);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border-radius: 1.5rem;
+  border: 2px solid rgba(0,255,247,0.12);
+  box-shadow: 0 8px 32px 0 rgba(0,255,247,0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse at center, #181824 0%, #0a0a0f 100%);
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff6b6b, #ff1493);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #ff1493, #9c27b0);
+}
+
+/* Text selection */
+::selection {
+  background: rgba(255, 107, 107, 0.3);
+  color: white;
+}
+
+/* Glow effects */
+.glow-red {
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(156, 39, 176, 0.3);
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #ff6b6b, #feca57, #48cae4, #ff1493);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+}
+
+/* Backdrop blur support */
+@supports (backdrop-filter: blur(10px)) {
+  .backdrop-blur-custom {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Custom utilities */
+.text-shadow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.border-glow {
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .mobile-scale {
+    transform: scale(0.8);
+  }
+}
+
+/* Loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, #000000 25%, #1a1a1a 50%, #000000 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
